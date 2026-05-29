@@ -6,9 +6,15 @@ from .views import (
     ProductUpdateView,
     ProductDeleteView,
 )
+from .home_views import HomePageView
 from .image_views import ProductImageCreateView
 from .category_views import CategoryListView 
 urlpatterns = [
+    path(
+        'home/',
+        HomePageView.as_view(),
+        name='home'
+    ),
 
     path(
         '',

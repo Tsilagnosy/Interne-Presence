@@ -3,15 +3,15 @@ from django.urls import path
 from django.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+from rest_framework_simplejwt.views import TokenRefreshView
+from apps.users.views import CustomTokenObtainPairView
+from apps.products.home_views import HomePageView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/token/', TokenObtainPairView.as_view()),
+    path('api/token/', CustomTokenObtainPairView.as_view()),
     path('api/token/refresh/', TokenRefreshView.as_view()),
+    path('api/home/', HomePageView.as_view(), name='api-home'),
     path('api/users', include('apps.users.urls')),
     path('api/users/', include('apps.users.urls')),
     path('api/products/', include('apps.products.urls')),
