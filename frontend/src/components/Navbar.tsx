@@ -19,6 +19,9 @@ export default function Navbar() {
           <Link href="/cart" className="rounded-full border border-slate-200 px-4 py-2 transition hover:bg-slate-50">
             Panier
           </Link>
+          <Link href="/admin" className="rounded-full border border-slate-200 px-4 py-2 transition hover:bg-slate-50">
+            Admin
+          </Link>
           {isAuthenticated ? (
             <button
               type="button"

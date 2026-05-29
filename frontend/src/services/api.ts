@@ -4,10 +4,7 @@ const ACCESS_TOKEN_KEY = 'AFRIMARKET_ACCESS_TOKEN';
 const REFRESH_TOKEN_KEY = 'AFRIMARKET_REFRESH_TOKEN';
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-const defaultApiBaseUrl =
-  typeof window !== 'undefined'
-    ? `${window.location.protocol}//${window.location.hostname}:8000/api/`
-    : 'http://127.0.0.1:8000/api/';
+const defaultApiBaseUrl = '/api/';
 
 const baseURL = apiBaseUrl || defaultApiBaseUrl;
 

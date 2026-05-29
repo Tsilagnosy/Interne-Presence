@@ -19,7 +19,7 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      const response = await api.post('token/', {
+      const response = await api.post('/token/', {
         username: email,
         password,
       });
@@ -31,9 +31,10 @@ export default function LoginPage() {
 
       login(access, refresh);
       router.push('/');
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      setError('Échec de la connexion. Vérifiez vos identifiants.');
+      const detail = err?.response?.data?.detail || err?.response?.data?.error || err?.message;
+      setError(`Échec de la connexion. ${detail || 'Vérifiez vos identifiants.'}`);
     } finally {
       setLoading(false);
     }

@@ -1,17 +1,18 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import api from '@/src/services/api';
+import api from '@/services/api';
+
+export const dynamic = 'force-dynamic';
 
 export default function PaymentSuccessPage() {
-  const searchParams = useSearchParams();
   const [message, setMessage] = useState('Traitement du paiement...');
 
   useEffect(() => {
-    const paymentId = searchParams.get('paymentId') || searchParams.get('paymentID') || '';
-    const payerId = searchParams.get('PayerID') || '';
-    const vendorId = searchParams.get('vendor_id') || '';
+    const params = new URLSearchParams(window.location.search);
+    const paymentId = params.get('paymentId') || params.get('paymentID') || '';
+    const payerId = params.get('PayerID') || '';
+    const vendorId = params.get('vendor_id') || '';
 
     if (!paymentId || !payerId || !vendorId) {
       setMessage('Paramètres manquants.');
@@ -31,7 +32,7 @@ export default function PaymentSuccessPage() {
         setMessage('Erreur lors de l\'exécution du paiement: ' + (err?.response?.data || err.message));
       }
     })();
-  }, [searchParams]);
+  }, []);
 
   return (
     <div className="max-w-xl mx-auto p-4">
