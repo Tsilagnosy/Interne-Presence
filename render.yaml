@@ -1,0 +1,18 @@
+services:
+  - type: web_service
+    name: interne-presence-backend
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    plan: starter
+    branch: main
+    healthCheckPath: /api/home/
+    instanceCount: 1
+
+  - type: web_service
+    name: interne-presence-frontend
+    env: docker
+    dockerfilePath: frontend/Dockerfile
+    plan: starter
+    branch: main
+    healthCheckPath: /
+    instanceCount: 1

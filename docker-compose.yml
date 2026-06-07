@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/media:/app/media
+      - ./backend/db.sqlite3:/app/db.sqlite3
+    environment:
+      - DJANGO_DEBUG=0
+      - ALLOWED_HOSTS=0.0.0.0,localhost
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production

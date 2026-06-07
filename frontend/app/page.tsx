@@ -57,6 +57,29 @@ export default function Home() {
     } catch (error) {
       console.error(error);
       setError('Impossible de charger la page d\'accueil. Vérifiez que le backend est démarré et accessible.');
+      // Fallback de démonstration : données mock pour permettre le rendu sans backend
+      setData({
+        statistics: {
+          total_products: 12,
+          total_vendors: 4,
+          total_categories: 6,
+        },
+        featured_products: [
+          {
+            id: 1,
+            name: 'Produit démo',
+            description: 'Un produit de démonstration lorsque le backend est indisponible.',
+            price: '29.99',
+            vendor_name: 'Vendeur démo',
+            category_name: 'Catégorie démo',
+            city: 'Antananarivo',
+            country: 'MG',
+            is_active: true,
+            image: '',
+          },
+        ],
+        popular_vendors: [],
+      });
     } finally {
       setLoading(false);
     }

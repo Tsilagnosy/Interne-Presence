@@ -19,7 +19,7 @@ class HomePageView(APIView):
     def get(self, request):
         # Statistiques générales
         total_products = Product.objects.filter(is_active=True).count()
-        total_vendors = Vendor.objects.filter(is_active=True).count()
+        total_vendors = Vendor.objects.filter(is_verified=True).count()
         total_categories = Product.objects.filter(is_active=True).values('category').distinct().count()
         
         # Produits en vedette (les plus récents et actifs)
@@ -27,9 +27,9 @@ class HomePageView(APIView):
             is_active=True
         ).select_related('vendor', 'category').order_by('-created_at')[:8]
         
-        # Vendeurs populaires (avec le plus de produits)
+        # Vendeurs populaires (avec le plus de produits actifs)
         popular_vendors = Vendor.objects.filter(
-            is_active=True
+            is_verified=True
         ).annotate(
             product_count=Count('products', filter=Q(products__is_active=True))
         ).order_by('-product_count')[:6]

@@ -2,22 +2,14 @@ import axios, { type AxiosError, type AxiosRequestConfig } from 'axios';
 
 const ACCESS_TOKEN_KEY = 'AFRIMARKET_ACCESS_TOKEN';
 const REFRESH_TOKEN_KEY = 'AFRIMARKET_REFRESH_TOKEN';
+const DEFAULT_BACKEND_URL = 'http://localhost:8000/api/';
 
-// Détermine la base URL selon l'environnement
-let baseURL = '/api/';
+const baseURL = typeof window === 'undefined'
+  ? process.env.NEXT_PUBLIC_API_BASE_URL || DEFAULT_BACKEND_URL
+  : process.env.NEXT_PUBLIC_API_BASE_URL || '/api/';
 
-if (typeof window !== 'undefined') {
-  // En développement, pointer directement vers le backend Django
-  if (process.env.NODE_ENV === 'development') {
-    baseURL = 'http://localhost:8000/api/';
-  } else {
-    // En production, utiliser le proxy
-    baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api/';
-  }
-
-  if (!process.env.NEXT_PUBLIC_API_BASE_URL && process.env.NODE_ENV === 'development') {
-    console.debug('[AFRIMARKET API] Development mode: Using direct backend at http://localhost:8000/api/');
-  }
+if (typeof window !== 'undefined' && !process.env.NEXT_PUBLIC_API_BASE_URL) {
+  console.debug('[AFRIMARKET API] Using frontend proxy /api/ to reach backend.');
 }
 
 const api = axios.create({
